@@ -36,7 +36,6 @@ public class ReminderTest {
         //This line initializes every variable with the @Mock annotation above
         MockitoAnnotations.initMocks(this);
 
-        Configuration fileConfig = new PropertiesConfiguration("secrets.properties");
         reminder = new Reminder(mockDataSource, mockEmailSender);
 
     }
