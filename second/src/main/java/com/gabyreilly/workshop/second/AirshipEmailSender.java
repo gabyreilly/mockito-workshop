@@ -56,9 +56,9 @@ public class AirshipEmailSender implements EmailSender {
 
 
     /**
-     * Send an email to the owner of the pet using Airship email templates
-     * @param owner
-     * @param pet
+     * Send an email to an owner of the pet using Airship email templates
+     * @param owner the Owner object, not null
+     * @param pet the Pet object, not null
      */
     @Override
     public void sendEmail(Owner owner, Pet pet) {

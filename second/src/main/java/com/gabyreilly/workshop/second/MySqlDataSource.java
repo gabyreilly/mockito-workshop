@@ -23,6 +23,11 @@ public class MySqlDataSource implements DataSource {
         this.dbConnectionString = configuration.getString("aws.db.connectionString");
     }
 
+    /**
+     * Connect to the database. Given a pet ID, look up the Pet information from the database.
+     * @param petId int of the pet's ID in the database
+     * @return Optional of Pet object if found, Optional.empty if not found
+     */
     @Override
     public Optional<Pet> getPet(int petId) {
         Connection connection = null;
@@ -64,6 +69,12 @@ public class MySqlDataSource implements DataSource {
         }
     }
 
+
+    /**
+     * Connect to the database.  Given a petId, return all the Owners of the pet.
+     * @param petId int of the pet's ID in the database
+     * @return The list may be empty, or it may contain any number of owners.
+     */
     @Override
     public List<Owner> getOwnersForPet(int petId) {
         Connection connection = null;

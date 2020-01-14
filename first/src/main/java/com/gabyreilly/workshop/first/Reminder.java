@@ -62,6 +62,10 @@ public class Reminder {
         this.airshipAuth = configuration.getString("airship.auth");
     }
 
+    /**
+     * Given a petId, send an email to each of the pet's owners reminding them to schedule an appointment
+     * @param petId int of the pet's ID in the database
+     */
     public void emailOwners(int petId) {
         //Retrieve pet information
         Optional<Pet> matchingPet = getPet(petId);
@@ -80,6 +84,11 @@ public class Reminder {
     }
 
 
+    /**
+     * Connect to the database. Given a pet ID, look up the Pet information from the database.
+     * @param petId int of the pet's ID in the database
+     * @return Optional of Pet object if found, Optional.empty if not found
+     */
     private Optional<Pet> getPet(int petId) {
         Connection connection = null;
         try {
@@ -105,8 +114,6 @@ public class Reminder {
             }
 
         } catch (SQLException e) {
-            // if the error message is "out of memory",
-            // it probably means no database file is found
             System.err.println(e.getMessage());
             return Optional.empty();
         } finally {
@@ -123,9 +130,8 @@ public class Reminder {
 
     /**
      * Connect to the database.  Given a petId, return all the Owners of the pet.
-     * The list may be empty, or it may contain multiple owners.
-     * @param petId
-     * @return
+     * @param petId int of the pet's ID in the database
+     * @return The list may be empty, or it may contain any number of owners.
      */
     private List<Owner> getOwnersForPet(int petId) {
         Connection connection = null;
@@ -156,8 +162,6 @@ public class Reminder {
             return foundOwners;
 
         } catch (SQLException e) {
-            // if the error message is "out of memory",
-            // it probably means no database file is found
             System.err.println(e.getMessage());
             return new ArrayList<>();
         } finally {
@@ -173,9 +177,9 @@ public class Reminder {
 
 
     /**
-     * Send an email to the owner of the pet using Airship email templates
-     * @param owner
-     * @param pet
+     * Send an email to an owner of the pet using Airship email templates
+     * @param owner the Owner object as retrieved from the database, not null
+     * @param pet the Pet object as retrieved from the database, not null
      */
     private void sendEmail(Owner owner, Pet pet) {
         String emailPayload = String.format(AIRSHIP_TEMPLATE, owner.getOwnerEmail(), owner.getOwnerName(), pet.getPetName());
