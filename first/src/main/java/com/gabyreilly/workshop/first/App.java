@@ -22,7 +22,7 @@ public class App {
 
         Reminder reminder = new Reminder(fileConfig);
 
-        reminder.emailOwners(2);
+        reminder.emailOwners(1);
     }
 
 

@@ -71,8 +71,6 @@ public class Reminder {
         Optional<Pet> matchingPet = getPet(petId);
 
         if (matchingPet.isPresent()) {
-            System.out.println(matchingPet.get());
-
             List<Owner> matchingOwners = getOwnersForPet(petId);
 
             //Send email to each owner of the pet
